@@ -8,8 +8,6 @@ const saveBtn = document.getElementById("save-checked");
 const inputValue = habitInput.value;
 
 
-
-
 const habits = [];
 
 habitBtn.addEventListener("click", function () {
