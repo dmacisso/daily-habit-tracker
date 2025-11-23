@@ -2,7 +2,8 @@
 const habitBtn = document.getElementById("addBtn");
 const habitInput = document.getElementById("habitInput");
 const habitListUl = document.getElementById("habitList");
-const saveBtn = document.getElementById("save-checked");
+const saveBtn = document.getElementById("save-data");
+const restoreBtn = document.getElementById("restore-data");
 
 // const inputValue = habitInput.value;
 
@@ -13,6 +14,7 @@ habitBtn.addEventListener("click", function () {
   const inputValue = habitInput.value.trim();
   if (!inputValue) return;
   habits.push(inputValue);
+  
 
   // re-render the list from scratch to avoid reusing the same <li>
   habitListUl.innerHTML = "";
@@ -24,7 +26,7 @@ habitBtn.addEventListener("click", function () {
     checkbox.type = 'checkbox';
     li.appendChild(checkbox);
     const delBtn = document.createElement("button");
-    delBtn.textContent = "Delete";
+    delBtn.textContent = "Del";
     delBtn.addEventListener('click', () => {
       li.remove(); // Remove the parent list item
     });
@@ -32,10 +34,26 @@ habitBtn.addEventListener("click", function () {
   });
   habitInput.value = "";
   console.log(habits);
+
+
+
+ //* Selects all input elements of type checkbox
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+  // Initialize and array of habit item objects
+  let habitItems = [{
+    date: "",
+    habit: "",
+    checked: false
+  }];
+
+
+
 });
 
 
 
+// Local Storage
 saveBtn.addEventListener('click', () => {
 
   // Selects all input elements of type checkbox
@@ -62,8 +80,35 @@ saveBtn.addEventListener('click', () => {
 
   });
 
+});
+
+
+restoreBtn.addEventListener("click", function () {
+  let savedHabits = localStorage.getItem('habit-items');
+  if (savedHabits) {
+    savedHabits = JSON.parse(savedHabits);
+    // console.log(savedHabits);
+
+    //Generate a DOM
+    savedHabits.forEach((habit) => {
+      // console.log(habit.habit, habit.checked);
+      const li = document.createElement("li");
+      li.textContent = habit.habit;
+      habitListUl.appendChild(li);
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      li.appendChild(checkbox);
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "Del";
+      delBtn.addEventListener('click', () => {
+        li.remove(); // Remove the parent list item
+      });
+      li.appendChild(delBtn);
+      
+    });
+
+  } else {
+    console.log("No name found in local storage.");
+  }
 })
-
-
-
 
