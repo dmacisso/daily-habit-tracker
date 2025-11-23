@@ -1,13 +1,12 @@
+// Reference to base elements
 const habitBtn = document.getElementById("addBtn");
 const habitInput = document.getElementById("habitInput");
-const habitList = document.getElementById("habitList");
-
+const habitListUl = document.getElementById("habitList");
 const saveBtn = document.getElementById("save-checked");
 
-// const habitElementLi = document.createElement("li");
-const inputValue = habitInput.value;
+// const inputValue = habitInput.value;
 
-
+// initialize a habits array.
 const habits = [];
 
 habitBtn.addEventListener("click", function () {
@@ -16,19 +15,25 @@ habitBtn.addEventListener("click", function () {
   habits.push(inputValue);
 
   // re-render the list from scratch to avoid reusing the same <li>
-  habitList.innerHTML = "";
+  habitListUl.innerHTML = "";
   habits.forEach(habit => {
     const li = document.createElement("li");
     li.textContent = habit;
-    habitList.appendChild(li);
+    habitListUl.appendChild(li);
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     li.appendChild(checkbox);
-
+    const delBtn = document.createElement("button");
+    delBtn.textContent = "Delete";
+    delBtn.addEventListener('click', () => {
+      li.remove(); // Remove the parent list item
+    });
+    li.appendChild(delBtn);
   });
   habitInput.value = "";
   console.log(habits);
 });
+
 
 
 saveBtn.addEventListener('click', () => {
@@ -53,7 +58,7 @@ saveBtn.addEventListener('click', () => {
 
     habitItems = { ...habitItems, habit, checked };
 
-    console.log(habitItems)
+    console.log(habitItems);
 
   });
 
