@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background: #eeaeca;
+  background: radial-gradient(
+    circle,
+    rgb(199, 85, 134) 0%,
+    rgb(44, 79, 119) 95%
+  );
+  margin: 0 auto;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 1rem;
+  color: #fff;
+}
