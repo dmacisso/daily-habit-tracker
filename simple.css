@@ -205,6 +205,7 @@ input[type="button"] {
   padding: 0.7rem 0.9rem;
   margin: 0.5rem 0;
   transition: 0.4s;
+  max-width: 75%;
 }
 
 a button[disabled],
@@ -315,7 +316,25 @@ table caption {
 ol,
 ul {
   padding-left: 3rem;
+  list-style-type: none;
+  /* width: 35%; */
 }
+
+ul li {
+  display:  flex;
+  /* justify-content: end; */
+  align-items: center;
+  /* max-width: 50%; */
+
+}
+
+ul li button {
+  padding: .2rem;
+  padding-right: 0.5rem;
+  margin: 0.2rem;
+}
+
+
 
 /* Format forms */
 textarea,
@@ -355,6 +374,8 @@ input[type="checkbox"],
 input[type="radio"] {
   vertical-align: bottom;
   position: relative;
+  background-color: #fff;
+  margin: 0.5rem;
 }
 
 input[type="radio"] {
