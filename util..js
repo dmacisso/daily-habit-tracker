@@ -97,3 +97,13 @@ module.exports = {
   reloadDOM: reloadDOM
 
 };
+
+
+delBtn.addEventListener('click', () => {
+      const habitToDelete = li.innerText.split('D')[0];
+      const target = habitToDelete.trim()      
+      // const target = li.innerText
+      console.log(target)
+      li.remove();// Remove the parent list item
+      deleteItemFromStorage(target);
+    }

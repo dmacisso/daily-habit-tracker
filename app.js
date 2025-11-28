@@ -6,7 +6,7 @@ const habitListUl = document.getElementById("habitList");
 const habitBtn = document.getElementById("addBtn");
 const restoreBtn = document.getElementById("restore-data");
 
-console.log(typeof reloadDOM);
+// console.log(typeof reloadDOM);
 
 //* reload data on DOM reload
 
@@ -33,7 +33,10 @@ document.addEventListener("DOMContentLoaded", function () {
         delBtn.textContent = "Del";
         li.appendChild(delBtn);
         delBtn.addEventListener('click', () => {
-          const target = li.innerText.split('D')[0];
+          const habitToDelete = li.innerText.split('D')[0];
+          const target = habitToDelete.trim();
+          // const target = li.innerText
+          console.log(target);
           li.remove();// Remove the parent list item
           deleteItemFromStorage(target);
         });
@@ -79,7 +82,10 @@ habitBtn.addEventListener("click", function () {
     delBtn.textContent = "Del";
     li.appendChild(delBtn);
     delBtn.addEventListener('click', () => {
-      const target = li.innerText.split('D')[0];
+      const habitToDelete = li.innerText.split('D')[0];
+      const target = habitToDelete.trim();
+      // const target = li.innerText
+      console.log(target);
       li.remove();// Remove the parent list item
       deleteItemFromStorage(target);
     });
@@ -127,7 +133,10 @@ restoreBtn.addEventListener("click", function () {
       delBtn.textContent = "Del";
       li.appendChild(delBtn);
       delBtn.addEventListener('click', () => {
-        const target = li.innerText.split('D')[0];
+        const habitToDelete = li.innerText.split('D')[0];
+        const target = habitToDelete.trim();
+        // const target = li.innerText
+        console.log(target);
         li.remove();// Remove the parent list item
         deleteItemFromStorage(target);
       });
