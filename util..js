@@ -106,4 +106,4 @@ delBtn.addEventListener('click', () => {
       console.log(target)
       li.remove();// Remove the parent list item
       deleteItemFromStorage(target);
-    }
+    })

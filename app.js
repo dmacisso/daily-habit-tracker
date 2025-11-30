@@ -17,31 +17,35 @@ document.addEventListener("DOMContentLoaded", function () {
     let savedHabits = localStorage.getItem('habit-items');
     if (savedHabits) {
       savedHabits = JSON.parse(savedHabits);
-      // console.log(savedHabits);
+      // console.log(typeof savedHabits[0][0].checked);
 
-      //Generate a DOM
+      // Generate a DOM
+      // generateDOM(savedHabits);
       savedHabits.forEach((habit) => {
-        // console.log(habit.habit, habit.checked);
+        // console.log(habit[0].checked)
         const li = document.createElement("li");
-        // console.log(habit[0]);
         li.textContent = habit[0].habit;
         habitListUl.appendChild(li);
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
+        checkbox.checked = habit[0].checked
         li.appendChild(checkbox);
         const delBtn = document.createElement("button");
-        delBtn.textContent = "Del";
+        delBtn.textContent = "Delete ❌";
         li.appendChild(delBtn);
         delBtn.addEventListener('click', () => {
           const habitToDelete = li.innerText.split('D')[0];
           const target = habitToDelete.trim();
-          // const target = li.innerText
-          console.log(target);
           li.remove();// Remove the parent list item
           deleteItemFromStorage(target);
         });
-
-      });
+        // console.log(checkbox);
+        const saveBtn = document.createElement("button");
+        saveBtn.textContent = 'Save 💾';
+        li.appendChild(saveBtn);
+        saveBtn.addEventListener("click", () => saveToStorage(habit[0].habit, checkbox));
+      }
+      );
 
     } else {
       console.log("No name found in local storage.");
@@ -49,31 +53,18 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// initialize a habits array.
-const habits = [];
 
-//*** This function deletes a habit from local storage ***/
-function deleteItemFromStorage(target) {
-  let existingHabitItems = JSON.parse(localStorage.getItem("habit-items")) || [];
-  const newList = existingHabitItems.filter((item) => item[0].habit !== target);
-  localStorage.setItem('habit-items', JSON.stringify(newList));
-}
+//MARK: Functions:
 
+//* This function generates the DOM
 
-//***  Click the "Add Habit" button to add habit to DOM  ***/
-habitBtn.addEventListener("click", function () {
-  const inputValue = habitInput.value.trim();
-  if (!inputValue) return;
-  habits.push(inputValue);
-
-  // re-render the list from scratch to avoid reusing the same <li>
-  habitListUl.innerHTML = "";
-
-  //* populate DOM
-  // populateDOM(habits)
+function generateDOM(habits) {
+  console.log("Habits: ", habits, habits.length);
   habits.forEach(habit => {
     const li = document.createElement("li");
+
     li.textContent = habit;
+
     habitListUl.appendChild(li);
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
@@ -89,23 +80,86 @@ habitBtn.addEventListener("click", function () {
       li.remove();// Remove the parent list item
       deleteItemFromStorage(target);
     });
+    const saveBtn = document.createElement("button");
+    saveBtn.textContent = 'Save';
+    li.appendChild(saveBtn);
+    saveBtn.addEventListener("click", () => saveToStorage(habit, isChecked));
   });
-  // console.log(habits);
+}
 
-  // Add habit to local storage.
+
+//*** This function will SAVE (add) habit to local storage.
+function saveToStorage(habit, checkbox) {
+
+  // console.log(checkbox.checked);
+
   // Initialize and array of habit item objects
   let existingHabitItems = JSON.parse(localStorage.getItem("habit-items")) || [];
-  // console.log(habitInput.value)
 
-  const newHabitItems = [{
+  const newHabitItem = [{
     date: new Date().toISOString(),
-    habit: habitInput.value,
-    checked: false
+    habit,
+    checked: checkbox.checked
   }];
 
-  existingHabitItems.push(newHabitItems);
+  existingHabitItems.push(newHabitItem);
 
   localStorage.setItem('habit-items', JSON.stringify(existingHabitItems));
+  habitInput.value = "";
+}
+
+//*** This function deletes a habit from local storage ***/
+function deleteItemFromStorage(target) {
+  let existingHabitItems = JSON.parse(localStorage.getItem("habit-items")) || [];
+  const newList = existingHabitItems.filter((item) => item[0].habit !== target);
+  localStorage.setItem('habit-items', JSON.stringify(newList));
+}
+
+
+
+//MARK: Initialize habits array.
+const habits = [];
+const isChecked = true;
+//***  Click the "Add Habit" button to add habit to DOM  ***/
+habitBtn.addEventListener("click", function () {
+  const inputValue = habitInput.value.trim();
+  if (!inputValue) return;
+  habits.push(inputValue);
+
+  // re-render the list from scratch to avoid reusing the same <li>
+  habitListUl.innerHTML = "";
+
+  //* populate DOM
+  // generateDOM(habits);
+
+  // populateDOM(habits);
+  habits.forEach(habit => {
+    const li = document.createElement("li");
+    li.textContent = habit;
+    habitListUl.appendChild(li);
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    // checkbox.addEventListener('change', function () {
+    //   checkbox.checked ? true : false;
+
+    // });
+    li.appendChild(checkbox);
+    const delBtn = document.createElement("button");
+    delBtn.textContent = "Delete ❌";
+    li.appendChild(delBtn);
+    delBtn.addEventListener('click', () => {
+      const habitToDelete = li.innerText.split('D')[0];
+      const target = habitToDelete.trim();
+      // const target = li.innerText
+      console.log(target);
+      li.remove();// Remove the parent list item
+      deleteItemFromStorage(target);
+    });
+    const saveBtn = document.createElement("button");
+    saveBtn.textContent = 'Save 💾';
+    li.appendChild(saveBtn);
+    saveBtn.addEventListener("click", () => saveToStorage(habit, checkbox));
+  });
   habitInput.value = "";
 
 });
@@ -114,36 +168,41 @@ habitBtn.addEventListener("click", function () {
 
 restoreBtn.addEventListener("click", function () {
   window.location.reload();
-  let savedHabits = localStorage.getItem('habit-items');
-  if (savedHabits) {
-    savedHabits = JSON.parse(savedHabits);
-    // console.log(savedHabits);
+  // let savedHabits = localStorage.getItem('habit-items');
+  // if (savedHabits) {
+  //   savedHabits = JSON.parse(savedHabits);
+  //   // console.log(savedHabits);
 
-    //Generate a DOM
-    savedHabits.forEach((habit) => {
-      // console.log(habit.habit, habit.checked);
-      const li = document.createElement("li");
-      // console.log(habit[0]);
-      li.textContent = habit[0].habit;
-      habitListUl.appendChild(li);
-      const checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
-      li.appendChild(checkbox);
-      const delBtn = document.createElement("button");
-      delBtn.textContent = "Del";
-      li.appendChild(delBtn);
-      delBtn.addEventListener('click', () => {
-        const habitToDelete = li.innerText.split('D')[0];
-        const target = habitToDelete.trim();
-        // const target = li.innerText
-        console.log(target);
-        li.remove();// Remove the parent list item
-        deleteItemFromStorage(target);
-      });
+  //   //Generate a DOM
+  //   // generateDOM(savedHabits)
+  //   savedHabits.forEach((habit) => {
+  //     console.log("Saved Habits", savedHabits, savedHabits.length);
+  //     const li = document.createElement("li");
+  //     // console.log(habit[0]);
+  //     li.textContent = habit[0].habit;
+  //     habitListUl.appendChild(li);
+  //     const checkbox = document.createElement('input');
+  //     checkbox.type = 'checkbox';
+  //     li.appendChild(checkbox);
+  //     const delBtn = document.createElement("button");
+  //     delBtn.textContent = "Del";
+  //     li.appendChild(delBtn);
+  //     delBtn.addEventListener('click', () => {
+  //       const habitToDelete = li.innerText.split('D')[0];
+  //       const target = habitToDelete.trim();
+  //       // const target = li.innerText
+  //       console.log(target);
+  //       li.remove();// Remove the parent list item
+  //       deleteItemFromStorage(target);
+  //     });
+  //     const saveBtn = document.createElement("button");
+  //     saveBtn.textContent = 'Save';
+  //     li.appendChild(saveBtn);
+  //     saveBtn.addEventListener("click", () => saveToStorage());
 
-    });
+  //   });
 
-  } else {
-    console.log("No name found in local storage.");
-  }
+  // } else {
+  //   console.log("No name found in local storage.");
+  // }
 });
