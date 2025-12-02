@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
         habitListUl.appendChild(li);
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
-        checkbox.checked = habit[0].checked
+        checkbox.checked = habit[0].checked;
         li.appendChild(checkbox);
         const delBtn = document.createElement("button");
         delBtn.textContent = "Delete ❌";
@@ -95,6 +95,12 @@ function saveToStorage(habit, checkbox) {
 
   // Initialize and array of habit item objects
   let existingHabitItems = JSON.parse(localStorage.getItem("habit-items")) || [];
+  
+  console.log(existingHabitItems)
+
+  // check for duplicate.
+  const isDuplicate = existingHabitItems.some(item => item[0].habit === habit);
+  
 
   const newHabitItem = [{
     date: new Date().toISOString(),
@@ -102,9 +108,16 @@ function saveToStorage(habit, checkbox) {
     checked: checkbox.checked
   }];
 
-  existingHabitItems.push(newHabitItem);
+  if (!isDuplicate) {
 
-  localStorage.setItem('habit-items', JSON.stringify(existingHabitItems));
+    existingHabitItems.push(newHabitItem);
+    localStorage.setItem('habit-items', JSON.stringify(existingHabitItems));
+    console.log(`Habit ${habit} added successfully`);
+  } else {
+    console.log(`Habit ${habit} already exists`);
+
+  }
+
   habitInput.value = "";
 }
 
