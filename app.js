@@ -5,6 +5,7 @@ const inputValue = habitInput.value;
 const habitListUl = document.getElementById("habitList");
 const habitBtn = document.getElementById("addBtn");
 const restoreBtn = document.getElementById("restore-data");
+const formElement = document.getElementById('habit-form');
 
 // console.log(typeof reloadDOM);
 
@@ -95,12 +96,12 @@ function saveToStorage(habit, checkbox) {
 
   // Initialize and array of habit item objects
   let existingHabitItems = JSON.parse(localStorage.getItem("habit-items")) || [];
-  
-  console.log(existingHabitItems)
+
+  console.log(existingHabitItems);
 
   // check for duplicate.
   const isDuplicate = existingHabitItems.some(item => item[0].habit === habit);
-  
+
 
   const newHabitItem = [{
     date: new Date().toISOString(),
@@ -134,7 +135,9 @@ function deleteItemFromStorage(target) {
 const habits = [];
 const isChecked = true;
 //***  Click the "Add Habit" button to add habit to DOM  ***/
-habitBtn.addEventListener("click", function () {
+// habitBtn.addEventListener("click", function () {
+formElement.addEventListener("submit", function (e) {
+  e.preventDefault();
   const inputValue = habitInput.value.trim();
   if (!inputValue) return;
   habits.push(inputValue);
