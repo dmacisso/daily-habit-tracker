@@ -109,23 +109,31 @@ function saveToStorage(habit, checkbox) {
     checked: checkbox.checked
   };
 
+
+  const idx = existingHabitItems.findIndex((item) => item.habit === newHabitItem.habit);
+
   if (!isDuplicate) {
+    // console.log("Not Duplicate");
     existingHabitItems.push(newHabitItem);
     localStorage.setItem('habit-items', JSON.stringify(existingHabitItems));
-    console.log(`Habit ${habit} added successfully`);
+    // console.log(`Habit ${habit} added successfully`);
   } else {
 
-    console.log(`Habit ${habit} already exists`);
+
     const idx = existingHabitItems.findIndex((item) => item.habit === newHabitItem.habit);
     console.log(idx);
     if (idx !== -1) {
       existingHabitItems[idx] = newHabitItem;
-      console.log("replaced")
+      localStorage.setItem('habit-items', JSON.stringify(existingHabitItems));
+      // console.log("replaced");
     }
-    // window.location.reload()
-    // This is a New test.
-
   }
+  window.location.reload();
+
+
+  //This is a New test.
+
+
 
   habitInput.value = "";
 }
@@ -192,6 +200,8 @@ formElement.addEventListener("submit", function (e) {
 
 restoreBtn.addEventListener("click", function () {
   window.location.reload();
+
+
   // let savedHabits = localStorage.getItem('habit-items');
   // if (savedHabits) {
   //   savedHabits = JSON.parse(savedHabits);
