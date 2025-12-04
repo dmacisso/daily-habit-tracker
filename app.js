@@ -54,8 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-
-//MARK: Functions:
+//MARK: Generate DOM:
 
 //* This function generates the DOM
 
@@ -88,7 +87,7 @@ function generateDOM(habits) {
   });
 }
 
-
+//MARK: Save Function
 //*** This function will SAVE (add) habit to local storage.
 function saveToStorage(habit, checkbox) {
 
@@ -137,7 +136,7 @@ function saveToStorage(habit, checkbox) {
 
   habitInput.value = "";
 }
-
+ 
 //*** This function deletes a habit from local storage ***/
 function deleteItemFromStorage(target) {
   let existingHabitItems = JSON.parse(localStorage.getItem("habit-items")) || [];
@@ -187,6 +186,13 @@ formElement.addEventListener("submit", function (e) {
       li.remove();// Remove the parent list item
       deleteItemFromStorage(target);
     });
+
+
+   //* save on add
+    saveToStorage(habit, checkbox)
+
+
+   //* create and append a save button. 
     const saveBtn = document.createElement("button");
     saveBtn.textContent = 'Save 💾';
     li.appendChild(saveBtn);
