@@ -117,8 +117,6 @@ function saveToStorage(habit, checkbox) {
     localStorage.setItem('habit-items', JSON.stringify(existingHabitItems));
     // console.log(`Habit ${habit} added successfully`);
   } else {
-
-
     const idx = existingHabitItems.findIndex((item) => item.habit === newHabitItem.habit);
     console.log(idx);
     if (idx !== -1) {
