@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (storedHabitItems) {
     // Use the stored habit-list to update the UI or application state
     let savedHabits = localStorage.getItem('habit-items');
+    // console.log("Saved Habits: ", savedHabits)
     if (savedHabits) {
       savedHabits = JSON.parse(savedHabits);
       // console.log(typeof savedHabits[0][0].checked);
@@ -30,6 +31,26 @@ document.addEventListener("DOMContentLoaded", function () {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = habit.checked;
+
+
+        checkbox.addEventListener('change', function () {
+          const checked = this.checked;
+          saveCheckedState(habit, checked);
+          // if (checked) {
+          //   console.log(`${habit.habit} checked?  ${checkbox.checked}`);
+          //   // saveToStorage(habit.habit, checkbox.checked);
+          //   saveCheckedState(habit, checked) 
+
+          // } else {
+          //   console.log(`${habit.habit} checked?  ${checkbox.checked}`);
+          //   // saveToStorage(habit.habit, checkbox.checked);
+          //   saveCheckedState(habit, checked) 
+
+          // }
+
+        });
+
+
         li.appendChild(checkbox);
         const delBtn = document.createElement("button");
         delBtn.textContent = "Delete ❌";
@@ -134,12 +155,28 @@ function saveToStorage(habit, checkbox) {
 
   habitInput.value = "";
 }
- 
+
 //*** This function deletes a habit from local storage ***/
 function deleteItemFromStorage(target) {
   let existingHabitItems = JSON.parse(localStorage.getItem("habit-items")) || [];
   const newList = existingHabitItems.filter((item) => item.habit !== target);
   localStorage.setItem('habit-items', JSON.stringify(newList));
+}
+
+//MARK: Save checked state
+//*** This function saves the changed state of the checkbox */
+function saveCheckedState(habit, checked) {
+  let existingHabitItems = JSON.parse(localStorage.getItem("habit-items")) || [];
+
+  const newHabitItem = {
+    date: new Date().toISOString(),
+    habit,
+    checked
+
+  };
+
+  existingHabitItems.push(newHabitItem);
+  localStorage.setItem('habit-items', JSON.stringify(existingHabitItems));
 }
 
 
@@ -186,11 +223,11 @@ formElement.addEventListener("submit", function (e) {
     });
 
 
-   //* save on add
-    saveToStorage(habit, checkbox)
+    //* save on add
+    saveToStorage(habit, checkbox);
 
 
-   //* create and append a save button. 
+    //* create and append a save button. 
     const saveBtn = document.createElement("button");
     saveBtn.textContent = 'Save 💾';
     li.appendChild(saveBtn);
