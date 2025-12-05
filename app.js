@@ -5,6 +5,8 @@ const inputValue = habitInput.value;
 const habitListUl = document.getElementById("habitList");
 const habitBtn = document.getElementById("addBtn");
 const restoreBtn = document.getElementById("restore-data");
+const deleteAllBtn = document.getElementById('delete-all');
+const clearBtn = document.getElementById("clear-all");
 const formElement = document.getElementById('habit-form');
 
 // console.log(typeof reloadDOM);
@@ -43,9 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const clearBtn = document.createElement("button");
         clearBtn.textContent = "Clear Habit ✏️";
         li.appendChild(clearBtn);
-        clearBtn.addEventListener("click", function(){
-          li.remove()
-        })
+        clearBtn.addEventListener("click", function () {
+          li.remove();
+        });
 
 
 
@@ -184,16 +186,20 @@ function saveCheckedState(habit, checked) {
 
 }
 
-//MARK: Clear Habits from screen
+
+//MARK: Clear All  Habits from screen
 function clearHabits() {
+  const allHabits = document.querySelectorAll("li");
+  console.log(allHabits);
 
 }
 
-
+// clearHabits();
 
 //MARK: Initialize habits array.
 const habits = [];
 const isChecked = true;
+
 //***  Click the "Add Habit" button to add habit to DOM  ***/
 // habitBtn.addEventListener("click", function () {
 formElement.addEventListener("submit", function (e) {
@@ -248,46 +254,18 @@ formElement.addEventListener("submit", function (e) {
 });
 
 
+// MARK: Buttons
+
+clearBtn.addEventListener("click", function () {
+  const allHabits = document.querySelectorAll("li");
+  allHabits.forEach(habit => { habit.remove(); });
+});
+
 
 restoreBtn.addEventListener("click", function () {
   window.location.reload();
+});
 
-
-  // let savedHabits = localStorage.getItem('habit-items');
-  // if (savedHabits) {
-  //   savedHabits = JSON.parse(savedHabits);
-  //   // console.log(savedHabits);
-
-  //   //Generate a DOM
-  //   // generateDOM(savedHabits)
-  //   savedHabits.forEach((habit) => {
-  //     console.log("Saved Habits", savedHabits, savedHabits.length);
-  //     const li = document.createElement("li");
-  //     // console.log(habit[0]);
-  //     li.textContent = habit[0].habit;
-  //     habitListUl.appendChild(li);
-  //     const checkbox = document.createElement('input');
-  //     checkbox.type = 'checkbox';
-  //     li.appendChild(checkbox);
-  //     const delBtn = document.createElement("button");
-  //     delBtn.textContent = "Del";
-  //     li.appendChild(delBtn);
-  //     delBtn.addEventListener('click', () => {
-  //       const habitToDelete = li.innerText.split('D')[0];
-  //       const target = habitToDelete.trim();
-  //       // const target = li.innerText
-  //       console.log(target);
-  //       li.remove();// Remove the parent list item
-  //       deleteItemFromStorage(target);
-  //     });
-  //     const saveBtn = document.createElement("button");
-  //     saveBtn.textContent = 'Save';
-  //     li.appendChild(saveBtn);
-  //     saveBtn.addEventListener("click", () => saveToStorage());
-
-  //   });
-
-  // } else {
-  //   console.log("No name found in local storage.");
-  // }
+deleteAllBtn.addEventListener("click", function () {
+  localStorage.removeItem('habit-items');
 });
