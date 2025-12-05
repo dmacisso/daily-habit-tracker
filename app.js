@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         checkbox.addEventListener('change', function () {
           const checked = this.checked;
-          saveCheckedState(habit, checked);
+          saveCheckedState(habit.habit, checked);
           // if (checked) {
           //   console.log(`${habit.habit} checked?  ${checkbox.checked}`);
           //   // saveToStorage(habit.habit, checkbox.checked);
@@ -62,10 +62,10 @@ document.addEventListener("DOMContentLoaded", function () {
           deleteItemFromStorage(target);
         });
         // console.log(checkbox);
-        const saveBtn = document.createElement("button");
-        saveBtn.textContent = 'Save 💾';
-        li.appendChild(saveBtn);
-        saveBtn.addEventListener("click", () => saveToStorage(habit.habit, checkbox));
+        // const saveBtn = document.createElement("button");
+        // saveBtn.textContent = 'Save 💾';
+        // li.appendChild(saveBtn);
+        // saveBtn.addEventListener("click", () => saveToStorage(habit.habit, checkbox));
       }
       );
 
@@ -166,6 +166,7 @@ function deleteItemFromStorage(target) {
 //MARK: Save checked state
 //*** This function saves the changed state of the checkbox */
 function saveCheckedState(habit, checked) {
+  console.log(`${habit} checked? ${checked}`)
   let existingHabitItems = JSON.parse(localStorage.getItem("habit-items")) || [];
 
   const newHabitItem = {
@@ -175,8 +176,15 @@ function saveCheckedState(habit, checked) {
 
   };
 
-  existingHabitItems.push(newHabitItem);
-  localStorage.setItem('habit-items', JSON.stringify(existingHabitItems));
+  const idx = existingHabitItems.findIndex((item) => item.habit === newHabitItem.habit);
+
+  if (idx !== -1) {
+    existingHabitItems[idx] = newHabitItem;
+    localStorage.setItem('habit-items', JSON.stringify(existingHabitItems));
+    // console.log("replaced");
+  }
+
+
 }
 
 
@@ -228,10 +236,10 @@ formElement.addEventListener("submit", function (e) {
 
 
     //* create and append a save button. 
-    const saveBtn = document.createElement("button");
-    saveBtn.textContent = 'Save 💾';
-    li.appendChild(saveBtn);
-    saveBtn.addEventListener("click", () => saveToStorage(habit, checkbox));
+    // const saveBtn = document.createElement("button");
+    // saveBtn.textContent = 'Save 💾';
+    // li.appendChild(saveBtn);
+    // saveBtn.addEventListener("click", () => saveToStorage(habit, checkbox));
   });
   habitInput.value = "";
 
