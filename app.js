@@ -19,41 +19,39 @@ document.addEventListener("DOMContentLoaded", function () {
     // console.log("Saved Habits: ", savedHabits)
     if (savedHabits) {
       savedHabits = JSON.parse(savedHabits);
-      // console.log(typeof savedHabits[0][0].checked);
 
-      // Generate a DOM
-      // generateDOM(savedHabits);
+      // 
+      // generate and save a DOM listing of habits;
       savedHabits.forEach((habit) => {
-        // console.log(habit[0].checked)
+
+        // Create an Li element
         const li = document.createElement("li");
         li.textContent = habit.habit;
         habitListUl.appendChild(li);
+
+        // Create a checkbox type input field
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = habit.checked;
-
-
         checkbox.addEventListener('change', function () {
           const checked = this.checked;
           saveCheckedState(habit.habit, checked);
-          // if (checked) {
-          //   console.log(`${habit.habit} checked?  ${checkbox.checked}`);
-          //   // saveToStorage(habit.habit, checkbox.checked);
-          //   saveCheckedState(habit, checked) 
-
-          // } else {
-          //   console.log(`${habit.habit} checked?  ${checkbox.checked}`);
-          //   // saveToStorage(habit.habit, checkbox.checked);
-          //   saveCheckedState(habit, checked) 
-
-          // }
-
         });
-
-
         li.appendChild(checkbox);
+
+        //Create a clear habit button
+        const clearBtn = document.createElement("button");
+        clearBtn.textContent = "Clear Habit ✏️";
+        li.appendChild(clearBtn);
+        clearBtn.addEventListener("click", function(){
+          li.remove()
+        })
+
+
+
+        // Create a Delete Button
         const delBtn = document.createElement("button");
-        delBtn.textContent = "Delete ❌";
+        delBtn.textContent = "Delete Habit ❌";
         li.appendChild(delBtn);
         delBtn.addEventListener('click', () => {
           const habitToDelete = li.innerText.split('D')[0];
@@ -166,7 +164,7 @@ function deleteItemFromStorage(target) {
 //MARK: Save checked state
 //*** This function saves the changed state of the checkbox */
 function saveCheckedState(habit, checked) {
-  console.log(`${habit} checked? ${checked}`)
+  console.log(`${habit} checked? ${checked}`);
   let existingHabitItems = JSON.parse(localStorage.getItem("habit-items")) || [];
 
   const newHabitItem = {
@@ -184,6 +182,10 @@ function saveCheckedState(habit, checked) {
     // console.log("replaced");
   }
 
+}
+
+//MARK: Clear Habits from screen
+function clearHabits() {
 
 }
 
