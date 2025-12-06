@@ -56,7 +56,8 @@ document.addEventListener("DOMContentLoaded", function () {
         delBtn.textContent = "Delete Habit ❌";
         li.appendChild(delBtn);
         delBtn.addEventListener('click', () => {
-          const habitToDelete = li.innerText.split('D')[0];
+          const habitToDelete = li.innerText.split('C')[0];
+          console.log(habitToDelete);
           const target = habitToDelete.trim();
           li.remove();// Remove the parent list item
           deleteItemFromStorage(target);
@@ -204,7 +205,7 @@ const isChecked = true;
 // habitBtn.addEventListener("click", function () {
 formElement.addEventListener("submit", function (e) {
   e.preventDefault();
-  const inputValue = habitInput.value.trim();
+  const inputValue = habitInput.value.trim().toLowerCase();
   if (!inputValue) return;
   habits.push(inputValue);
 
