@@ -1,9 +1,11 @@
+import { dateTimeStamp } from "./sandbox.js";
+
 
 // Reference to base elements
 const habitInput = document.getElementById("habitInput");
 const inputValue = habitInput.value;
 const habitListUl = document.getElementById("habitList");
-const habitBtn = document.getElementById("addBtn");
+// const habitBtn = document.getElementById("addBtn");
 const restoreBtn = document.getElementById("restore-data");
 const deleteAllBtn = document.getElementById('delete-all');
 const clearBtn = document.getElementById("clear-all");
@@ -28,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Create an Li element
         const li = document.createElement("li");
-        li.textContent = habit.habit;
+        li.textContent = `${habit.habit} - ${habit.date}`;
         habitListUl.appendChild(li);
 
         // Create a checkbox type input field
@@ -56,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
         delBtn.textContent = "Delete Habit ❌";
         li.appendChild(delBtn);
         delBtn.addEventListener('click', () => {
-          const habitToDelete = li.innerText.split('C')[0];
+          const habitToDelete = li.innerText.split('-')[0];
           console.log(habitToDelete);
           const target = habitToDelete.trim();
           li.remove();// Remove the parent list item
@@ -121,11 +123,13 @@ function saveToStorage(habit, checkbox) {
   // console.log(existingHabitItems);
 
   // check for duplicate.
+  // const isDuplicate = existingHabitItems.some(item => item.habit === habit && item.date === dateTimeStamp());
   const isDuplicate = existingHabitItems.some(item => item.habit === habit);
 
+  const entryDate = dateTimeStamp();
 
   const newHabitItem = {
-    date: new Date().toISOString(),
+    date: entryDate,
     habit,
     checked: checkbox.checked
   };
@@ -170,8 +174,11 @@ function saveCheckedState(habit, checked) {
   console.log(`${habit} checked? ${checked}`);
   let existingHabitItems = JSON.parse(localStorage.getItem("habit-items")) || [];
 
+
+
+
   const newHabitItem = {
-    date: new Date().toISOString(),
+    date: dateTimeStamp(),
     habit,
     checked
 
@@ -194,6 +201,7 @@ function clearHabits() {
   console.log(allHabits);
 
 }
+
 
 // clearHabits();
 
