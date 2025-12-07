@@ -6,8 +6,28 @@
     <link rel="stylesheet" href="simple.css" />
   </head>
   <body>
-    <div class="container">
-      <h1>Daily Habit Tracker</h1>
+    <header>
+      <h1>Daily Habit Tracker</h1>  
+      <div>
+        <p>Enter health habits that you want to track for the day. Once a habit is entered it is saved to local storage. There is a checkbox to indicate that the habit was completed. Changing state of the checkbox will trigger a new save for that habit. Below are some examples of habits to track. Note: duplicate tasks are overwritten in the database, so be sure the wording of each task is unique.</p>
+      </div>
+      <ul>
+        <li>drink water 8 oz at 8am</li>
+        <li>morning stretch</li>
+        <li>30 min cardio exercise</li>
+        <li>water 8 oz at 9:30 am</li>
+        <li>walk for 1 mile approx 2000 steps</li>
+        <li>eat a healthy lunch</li>
+        <li>more cardio: rapid walk to jog 2 miles 4000 steps</li>
+        <li>weight bearing exercise</li>
+        <li>strength training</li>
+        <li>eat a healthy dinner</li>
+        <li>5-10 min after dinner walk</li>
+
+      </ul>
+    </header>
+
+    <main class="container">
       <form action="" id="habit-form">
         <div class="add-habit">
           <input type="text" id="habitInput" placeholder="New habit..." />
@@ -16,15 +36,15 @@
       </form>
 
       <ul id="habitList"></ul>
-      
-      <hr>
+
+      <hr />
 
       <div class="action-buttons">
-        <button id="restore-data">🔄️ Window Reload </button>
-        <button id="clear-all"> ✏️ Clear All Habits </button>
+        <button id="restore-data">🔄️ Window Reload</button>
+        <button id="clear-all">✏️ Clear All Habits</button>
         <button id="delete-all">❌ Delete All Habits</button>
       </div>
-    </div>
+    </main>
 
     <script src="./app.js"></script>
   </body>

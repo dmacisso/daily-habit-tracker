@@ -90,9 +90,15 @@ header {
 }
 
 /* Remove margins for header text */
-header h1,
-header p {
+/* header h1 {
   margin: 0;
+} */
+
+header p {
+  text-align: left;
+  font-size: 1.5rem;
+  margin: 0.5rem auto;
+  max-width: 80%;
 }
 
 /* Add a little padding to ensure spacing is correct between content and nav */
@@ -326,6 +332,7 @@ table caption {
 }
 
 /* Lists */
+
 ol,
 ul {
   padding-left: 3rem;
@@ -351,6 +358,16 @@ ul li button {
 
 ul li button:nth-child(2) {
   margin-left: auto;
+}
+
+header ul {
+  margin: 1rem 10rem;
+  list-style-type: square;
+  text-align: left;
+}
+
+header ul li {
+  font-size: 1.5rem;
 }
 
 /* Format forms */
