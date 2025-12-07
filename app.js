@@ -1,4 +1,4 @@
-import { dateTimeStamp } from "./sandbox.js";
+import { dateTimeStamp } from "./utils.js";
 
 
 // Reference to base elements
@@ -119,45 +119,15 @@ function saveToStorage(habit, checkbox) {
 
   // Initialize and array of habit item objects
   let existingHabitItems = JSON.parse(localStorage.getItem("habit-items")) || [];
-
-  // console.log(existingHabitItems);
-
-  // check for duplicate.
-  // const isDuplicate = existingHabitItems.some(item => item.habit === habit && item.date === dateTimeStamp());
-  const isDuplicate = existingHabitItems.some(item => item.habit === habit);
-
-  const entryDate = dateTimeStamp();
-
   const newHabitItem = {
-    date: entryDate,
+    date: dateTimeStamp(),
     habit,
     checked: checkbox.checked
   };
 
-
-  const idx = existingHabitItems.findIndex((item) => item.habit === newHabitItem.habit);
-
-  if (!isDuplicate) {
-    // console.log("Not Duplicate");
-    existingHabitItems.push(newHabitItem);
-    localStorage.setItem('habit-items', JSON.stringify(existingHabitItems));
-    // console.log(`Habit ${habit} added successfully`);
-  } else {
-    const idx = existingHabitItems.findIndex((item) => item.habit === newHabitItem.habit);
-    console.log(idx);
-    if (idx !== -1) {
-      existingHabitItems[idx] = newHabitItem;
-      localStorage.setItem('habit-items', JSON.stringify(existingHabitItems));
-      // console.log("replaced");
-    }
-  }
+  existingHabitItems.push(newHabitItem);
+  localStorage.setItem('habit-items', JSON.stringify(existingHabitItems)); 
   window.location.reload();
-
-
-  //This is a New test.
-
-
-
   habitInput.value = "";
 }
 

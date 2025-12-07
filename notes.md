@@ -120,3 +120,24 @@ delBtn.addEventListener('click', () => {
   const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
   // alert(formattedTime);
+
+
+   // check for duplicate.
+  // const isDuplicate = existingHabitItems.some(item => item.habit === habit);
+
+  // const idx = existingHabitItems.findIndex((item) => item.habit === newHabitItem.habit);
+
+  // if (!isDuplicate) {
+  //   // console.log("Not Duplicate");
+  //   existingHabitItems.push(newHabitItem);
+  //   localStorage.setItem('habit-items', JSON.stringify(existingHabitItems));
+  //   // console.log(`Habit ${habit} added successfully`);
+  // } else {
+  //   const idx = existingHabitItems.findIndex((item) => item.habit === newHabitItem.habit);
+  //   console.log(idx);
+  //   if (idx !== -1) {
+  //     existingHabitItems[idx] = newHabitItem;
+  //     localStorage.setItem('habit-items', JSON.stringify(existingHabitItems));
+  //     // console.log("replaced");
+  //   }
+  // }
