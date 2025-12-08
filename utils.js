@@ -1,4 +1,7 @@
 
+
+//MARK: DateTime Function
+//**  This function returns date time in "month/day/year hour:min:seconds" format   **//
 export const dateTimeStamp = () => {
 
   // Get the current date and time
@@ -32,3 +35,63 @@ export const dateTimeStamp = () => {
   return `${formattedDate} ${formattedTime}`;
 
 };
+
+
+//MARK: Save to Storage
+//*** This function will SAVE (add) habit to local storage.
+export const saveToStorage = (habit, checkbox) => {
+
+  // console.log(checkbox.checked);
+
+  // Initialize and array of habit item objects
+  let existingHabitItems = JSON.parse(localStorage.getItem("habit-items")) || [];
+  const newHabitItem = {
+    date: dateTimeStamp(),
+    habit,
+    checked: checkbox.checked
+  };
+
+  existingHabitItems.push(newHabitItem);
+  localStorage.setItem('habit-items', JSON.stringify(existingHabitItems));
+  window.location.reload();
+  habitInput.value = "";
+};
+
+//MARK: Delete Item from Storage
+//*** This function deletes a habit from local storage ***/
+export const deleteItemFromStorage = (target) => {
+  let existingHabitItems = JSON.parse(localStorage.getItem("habit-items")) || [];
+  const newList = existingHabitItems.filter((item) => item.habit !== target);
+  localStorage.setItem('habit-items', JSON.stringify(newList));
+};
+
+//MARK: Save checked state
+//*** This function saves the changed state of the checkbox */
+export const saveCheckedState = (habit, checked) => {
+  console.log(`${habit} checked? ${checked}`);
+  let existingHabitItems = JSON.parse(localStorage.getItem("habit-items")) || [];
+  const newHabitItem = {
+    date: dateTimeStamp(),
+    habit,
+    checked
+
+  };
+
+  const idx = existingHabitItems.findIndex((item) => item.habit === newHabitItem.habit);
+
+  if (idx !== -1) {
+    existingHabitItems[idx] = newHabitItem;
+    localStorage.setItem('habit-items', JSON.stringify(existingHabitItems));
+    // console.log("replaced");
+  }
+
+  window.location.reload();
+
+};
+
+//MARK: Clear All  Habits from screen
+export const clearHabits = () => {
+  const allHabits = document.querySelectorAll("li");
+  console.log(allHabits);
+
+}

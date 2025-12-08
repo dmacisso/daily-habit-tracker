@@ -141,3 +141,9 @@ delBtn.addEventListener('click', () => {
   //     // console.log("replaced");
   //   }
   // }
+
+  //* create and append a save button. 
+    // const saveBtn = document.createElement("button");
+    // saveBtn.textContent = 'Save 💾';
+    // li.appendChild(saveBtn);
+    // saveBtn.addEventListener("click", () => saveToStorage(habit, checkbox));
