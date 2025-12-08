@@ -126,7 +126,7 @@ function saveToStorage(habit, checkbox) {
   };
 
   existingHabitItems.push(newHabitItem);
-  localStorage.setItem('habit-items', JSON.stringify(existingHabitItems)); 
+  localStorage.setItem('habit-items', JSON.stringify(existingHabitItems));
   window.location.reload();
   habitInput.value = "";
 }
@@ -143,10 +143,6 @@ function deleteItemFromStorage(target) {
 function saveCheckedState(habit, checked) {
   console.log(`${habit} checked? ${checked}`);
   let existingHabitItems = JSON.parse(localStorage.getItem("habit-items")) || [];
-
-
-
-
   const newHabitItem = {
     date: dateTimeStamp(),
     habit,
@@ -161,6 +157,8 @@ function saveCheckedState(habit, checked) {
     localStorage.setItem('habit-items', JSON.stringify(existingHabitItems));
     // console.log("replaced");
   }
+
+  window.location.reload();
 
 }
 
