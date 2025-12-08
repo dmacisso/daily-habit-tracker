@@ -245,4 +245,5 @@ restoreBtn.addEventListener("click", function () {
 
 deleteAllBtn.addEventListener("click", function () {
   localStorage.removeItem('habit-items');
+  window.location.reload();
 });
