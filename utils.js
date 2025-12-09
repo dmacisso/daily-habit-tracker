@@ -94,4 +94,46 @@ export const clearHabits = () => {
   const allHabits = document.querySelectorAll("li");
   console.log(allHabits);
 
-}
+};
+
+//MARK: Generate DOM:
+//* This function generates the DOM
+export const generateDOM = (habits) => {
+  console.log("Habits: ", habits, habits.length);
+  habits.forEach((habit) => {
+    // Create an Li element
+    const li = document.createElement("li");
+    li.textContent = `${habit.habit} - ${habit.date}`;
+    habitListUl.appendChild(li);
+
+    // Create a checkbox type input field
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = habit.checked;
+    checkbox.addEventListener('change', function () {
+      const checked = this.checked;
+      saveCheckedState(habit.habit, checked);
+    });
+    li.appendChild(checkbox);
+
+    //Create a clear habit button
+    const clearBtn = document.createElement("button");
+    clearBtn.textContent = "Clear Habit ✏️";
+    li.appendChild(clearBtn);
+    clearBtn.addEventListener("click", function () {
+      li.remove();
+    });
+
+    // Create a Delete Button
+    const delBtn = document.createElement("button");
+    delBtn.textContent = "Delete Habit ❌";
+    li.appendChild(delBtn);
+    delBtn.addEventListener('click', () => {
+      const habitToDelete = li.innerText.split('-')[0];
+      console.log(habitToDelete);
+      const target = habitToDelete.trim();
+      li.remove();// Remove the parent list item
+      deleteItemFromStorage(target);
+    });
+  });
+};
