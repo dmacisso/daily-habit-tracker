@@ -63,6 +63,7 @@ export const deleteItemFromStorage = (target) => {
   let existingHabitItems = JSON.parse(localStorage.getItem("habit-items")) || [];
   const newList = existingHabitItems.filter((item) => item.habit !== target);
   localStorage.setItem('habit-items', JSON.stringify(newList));
+  window.location.reload();
 };
 
 //MARK: Save checked state

@@ -8,24 +8,25 @@
   <body>
     <header>
       <h1>Daily Habit Tracker</h1>
-      <div>
-        <p>
-          Select or enter health habits that you want to track, and check them
-          off as you complete them. Once a habit is entered, it is saved to
-          local storage with the current date-time stamp. Changing state of the
-          checkbox will trigger a new save for that habit and will update the
-          date-time stamp. Buttons: The "Clear Habit" button, will clear the
-          entry from the screen but remains in the database. The "Delete Habit"
-          button will delete the entry from the database. The other buttons are
-          self explanatory.
-        </p>
-      </div>
-      
     </header>
 
     <main class="container">
+      <div>
+        <p class="intro">
+          Select or type your health habits that you want to track, then check
+          them off as you complete them. Once a habit is entered, it is saved to
+          local storage with the current datetime stamp. Changing state of the
+          checkbox will trigger a new save for that habit and will update the
+          datetime stamp. Buttons: The "Clear Habit ✏️ " button, will clear the
+          entry from the screen but remains in the local storage. The "Delete
+          Habit ❌ " button will delete that entry and all occurrences of that
+          unique habit entry from the local storage regardless of time-date
+          stamp. The other buttons are self explanatory.
+        </p>
+      </div>
+
       <form action="" id="habit-form">
-        <!-- <label for="myInput">Select or type a value:</label>
+        <label for="myInput">Select or type a value:</label>
         <input list="myDatalist" id="habitInput" name="myInput" />
         <datalist id="myDatalist">
           <option value="drink water"></option>
@@ -34,12 +35,12 @@
           <option value="weight training"></option>
           <option value="Other"></option>
         </datalist>
-        <button id="addBtn">New Habit ➕</button> -->
+        <button id="addBtn">New Habit ➕</button>
 
-        <div class="add-habit">
+        <!-- <div class="add-habit">
           <input type="text" id="habitInput" placeholder="New habit..." />
           <button id="addBtn">New Habit ➕</button>
-        </div>
+        </div> -->
       </form>
 
       <ul id="habitList"></ul>
